@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,500&display=swap");
+
+.container {
+	height: 24em;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: gold rgb(230, 213, 117);
+}
+
+.container::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+.container::-webkit-scrollbar-thumb {
+	background-color: rgb(255, 217, 0, 0.2);
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(255, 217, 0);
+}
+
+.container::-webkit-scrollbar-track {
+	background-color: rgb(230, 213, 117, 0.2);
+}
+
+.container::-webkit-scrollbar-track:hover {
+	background-color: rgb(230, 213, 117);
+}
+
+.heading {
+	text-align: center;
+	font-size: 1.6em;
+	font-weight: 600;
+}
+
+.table {
+	border-collapse: collapse;
+	margin: 1em 0;
+	font-size: 1em;
+	min-width: 100%;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+.table thead tr {
+	background-color: gold;
+	color: #000;
+	text-align: center;
+	font-weight: bold;
+}
+
+.table th,
+.table td {
+	padding: 1em 1.1em;
+	text-align: center;
+}
+
+.table tbody tr {
+	border-bottom: 1px solid lightgray;
+	cursor: pointer;
+}
+
+.table tbody tr:nth-of-type(even) {
+	background-color: #c8c5c5;
+}
+
+.table tbody tr:last-of-type {
+	border-bottom: 2px solid #000000;
+}
+
+.table td svg {
+	margin: auto;
+}

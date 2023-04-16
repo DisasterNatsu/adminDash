@@ -1,80 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-   body {
-    @apply bg-gray-100;
-   }
+	body {
+		@apply bg-gray-100;
+	}
 }
 
+[type="checkbox"] {
+	vertical-align: middle;
+}
 
 .heading {
-   font-size: 2em;
-   font-family: 'Oswald', sans-serif;
-   cursor: default;
+	font-size: 2em;
+	font-family: "Oswald", sans-serif;
+	cursor: default;
 }
 
 .main {
-   margin-left: 19rem;
-   padding-left: 2rem;
-   height: 100vh;
-   overflow-y: scroll;
+	margin-left: 19rem;
+	padding-left: 2rem;
+	height: 100vh;
+	overflow-y: scroll;
 }
 
 @media (max-width: 1024px) {
-   .main {
-      margin-left: 12rem;
-      padding-left: 0;
-      transition: ease-in-out;
-   }
+	.main {
+		margin-left: 12rem;
+		padding-left: 0;
+		transition: ease-in-out;
+	}
 }
 
 @media (max-width: 960px) {
-   .main {
-      margin-left: 7rem;
-      padding-left: 0;
-      transition: ease-in-out;
-   }
+	.main {
+		margin-left: 7rem;
+		padding-left: 0;
+		transition: ease-in-out;
+	}
 }
 
 @media (max-width: 800px) {
-   .main {
-      margin-left: 2rem;
-      padding-left: 0;
-      transition: ease-in-out;
-   }
+	.main {
+		margin-left: 2rem;
+		padding-left: 0;
+		transition: ease-in-out;
+	}
 }
 
 @media (max-width: 760px) {
-   .main {
-      margin-left: 0;
-      padding: 10px;
-      transition: ease-in-out;
-      margin-top: 4rem;
-   }
+	.main {
+		margin-left: 0;
+		padding: 10px;
+		transition: ease-in-out;
+		margin-top: 4rem;
+	}
 }
 
 /* Admin Progress Bar */
 
-.CircularProgressbar{
-   width: 8rem !important;
-   overflow: visible;
+.CircularProgressbar {
+	width: 8rem !important;
+	overflow: visible;
 }
 
-.CircularProgressbar-path{
-   stroke: white !important;
-   stroke-width: 12px !important;
-   filter: drop-shadow(2px 4px 6px #fff);
+.CircularProgressbar-path {
+	stroke: white !important;
+	stroke-width: 12px !important;
+	filter: drop-shadow(2px 4px 6px #fff);
 }
 
-.CircularProgressbar-trail{
-   display: none;
+.CircularProgressbar-trail {
+	display: none;
 }
 
-.CircularProgressbar-text{
-   fill: #fff !important;
+.CircularProgressbar-text {
+	fill: #fff !important;
 }
 
+@media (max-width: 2396px) {
+	.CircularProgressbar {
+		width: 6rem !important;
+		margin: 0 0 1rem 1rem;
+	}
+}

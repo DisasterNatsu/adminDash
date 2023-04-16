@@ -1,0 +1,16 @@
+.color {
+    color: rgb(235, 222, 149);
+}
+
+.color:hover {
+    color: #fff;
+}
+
+.active {
+    background-color: gold;
+    color: #000 !important;
+}
+.line {
+    border-bottom: 1.5px solid gold;
+    margin-bottom: 1em;
+}

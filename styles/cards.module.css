@@ -1,0 +1,74 @@
+.compactCard {
+    display: flex;
+    flex: 1;
+    height: 14rem !important;
+    border-radius: 0.7rem;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+@media (max-width: 500px) {
+    .compactCard {
+        display: flex;
+        flex: 1;
+        height: 11rem !important;
+        padding: .3rem;
+    }
+}
+
+.compactCard:hover {
+    box-shadow: none !important;
+}
+
+
+
+.radialBar{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.radialBar > span {
+    font-size: 17px;
+    font-weight: bold;
+}
+  
+
+.detail{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+} 
+
+.detail > span:nth-child(2){
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.detail > span:nth-child(3){
+    font-size: 2rem;
+    
+}
+
+@media (max-width: 2396px) {
+    .detail > span:nth-child(3){
+        font-size: 1rem;
+        
+    }
+}
+
+
+@media (max-width: 1927px) {
+    .detail > span:nth-child(2){
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
+
+/* Extended Card */
