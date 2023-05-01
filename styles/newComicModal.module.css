@@ -1,0 +1,63 @@
+.formContainer {
+  display: block;
+}
+
+.formContainer label {
+  margin-top: 10px;
+}
+
+.singleInputContainer {
+  width: 21em;
+}
+
+.labels {
+  margin-right: 1em;
+}
+
+.textInput {
+  padding: 5px;
+  outline: none;
+  border: 1px solid #000;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 0.3em;
+}
+
+.flexCheckbox {
+  margin: 1em 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genre {
+  margin-right: 5px;
+  vertical-align: middle !important;
+}
+
+.hot {
+  padding: 2px;
+  border: 2px solid red;
+  border-radius: 10px;
+  margin-right: 0.5em;
+  font-weight: bold;
+  color: red;
+}
+
+.mass {
+  padding: 2px;
+  border: 2px solid rgb(173, 3, 173);
+  border-radius: 10px;
+  margin-right: 0.5em;
+  font-weight: bold;
+  color: rgb(173, 3, 173);
+}
+
+.new {
+  padding: 2px;
+  border: 2px solid rgb(6, 147, 241);
+  border-radius: 10px;
+  margin-right: 0.5em;
+  font-weight: bold;
+  color: rgb(6, 147, 241);
+}

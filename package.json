@@ -4,8 +4,8 @@
   "private": true,
   "engines": {
     "node": ">=16.15.0",
-    "npm" : ">=9.2.0",
-    "yarn" : "please-use-npm"
+    "npm": ">=9.2.0",
+    "yarn": "please-use-npm"
   },
   "scripts": {
     "dev": "next dev",
@@ -15,11 +15,16 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
+    "@nextui-org/react": "^1.0.0-beta.12",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
     "framer-motion": "^10.11.6",
+    "js-cookie": "^3.0.5",
     "next": "13.3.0",
     "react": "18.2.0",
     "react-apexcharts": "^1.4.0",
+    "react-bootstrap": "^2.7.4",
     "react-chartjs-2": "^5.2.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.2.0",

@@ -1,11 +1,10 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import LogIn from "../components/logIn";
 
-export default function Home() {
-	const Router = useRouter();
-	useEffect(() => {
-		Router.replace("/dashboard");
-	});
-	return;
-}
+const Home = () => {
+  return <LogIn />;
+};
+
+export default Home;
