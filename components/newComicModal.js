@@ -24,6 +24,18 @@ const NewComic = (props) => {
 
   const Router = useRouter();
 
+  // Handle Status
+
+  const handleStatus = (e) => {
+    setStatus(e.target.value);
+  };
+
+  // Handle Badges
+
+  const handleBadge = (e) => {
+    setTitleBadge(e.target.value);
+  };
+
   // Submit Function
 
   const Submit = async (e) => {
@@ -33,36 +45,15 @@ const NewComic = (props) => {
 
     // Appening Data to Form Data
 
-    // Appeding Comic Name
-    formData.append("comicTitle", comicName);
-
-    // Appeding Description
-
-    formData.append("description", desc);
-
-    // Appeding Origin
-
-    formData.append("origin", origin);
-
-    // Appeding Status
-
-    formData.append("status", status);
-
-    // Appeding Genres Array as a String
-
-    formData.append("tags", JSON.stringify(genres));
-
-    // Appeding Author
-
-    formData.append("author", author);
-
-    // Appeding Artist
-
-    formData.append("artist", artist);
-
-    // Appeding Cover Image
-
-    formData.append("coverImage", coverImage);
+    formData.append("comicTitle", comicName); // Appeding Comic Name
+    formData.append("description", desc); // Appeding Description
+    formData.append("origin", origin); // Appeding Origin
+    formData.append("status", status); // Appeding Status
+    formData.append("genres", JSON.stringify(genres)); // Appeding Genres Array as a String
+    formData.append("author", author); // Appeding Author
+    formData.append("artist", artist); // Appeding Artist
+    formData.append("coverImage", coverImage); // Appeding Cover Image
+    formData.append("badge", titleBadge); // Appending Title Badge
 
     try {
       // Making A request to Backend using Axios
@@ -79,7 +70,11 @@ const NewComic = (props) => {
 
       // If no error and a token
 
-      const post = await Axios.post("/postComic/new", formData);
+      const post = await Axios.post("/postComic/new", formData, {
+        headers: {
+          "ds-admin-auth": token,
+        },
+      });
 
       const hasPosted = await post.data;
 
@@ -120,9 +115,11 @@ const NewComic = (props) => {
         <Modal.Body>
           <div className={styles.formContainer}>
             {/* Comic Name */}
+
             <label htmlFor="comicName">Comic Name:</label>
             <br />
             <input
+              name="comicName"
               type="text"
               placeholder="e.g. Martial Peak"
               className={styles.textInput}
@@ -178,6 +175,9 @@ const NewComic = (props) => {
                   onChange={(e) => setOrigin(e.target.value)}
                 />
               </div>
+
+              {/* Radio Buttons for Status */}
+
               <div style={{ flexBasis: "40%" }}>
                 <Spacer y={1.4} />
                 <Radio.Group orientation="horizontal" defaultValue="primary">
@@ -185,21 +185,24 @@ const NewComic = (props) => {
                   <Radio
                     value="Ongoing"
                     color="success"
-                    onClick={(e) => setStatus(e.target.value)}
+                    onFocus={handleStatus}
+                    name="status"
                   >
                     Ongoing
                   </Radio>
                   <Radio
                     value="Completed"
                     color="warning"
-                    onClick={(e) => setStatus(e.target.value)}
+                    onFocus={handleStatus}
+                    name="status"
                   >
                     Completed
                   </Radio>
                   <Radio
                     value="Dropped"
                     color="error"
-                    onClick={(e) => setStatus(e.target.value)}
+                    onFocus={handleStatus}
+                    name="status"
                   >
                     Dropped
                   </Radio>
@@ -255,7 +258,7 @@ const NewComic = (props) => {
               style={{ verticalAlign: "middle", marginRight: "1.5em" }}
               value={"TRENDING"}
               checked={titleBadge === "TRENDING"}
-              onClick={() => setTitleBadge("TRENDING")}
+              onFocus={handleBadge}
             />
 
             {/* Mass Release */}
@@ -268,7 +271,7 @@ const NewComic = (props) => {
               style={{ verticalAlign: "middle", marginRight: "1.5em" }}
               value={"MASS RELEASE"}
               checked={titleBadge === "MASS RELEASE"}
-              onClick={() => setTitleBadge("MASS RELEASE")}
+              onFocus={handleBadge}
             />
 
             {/* New */}
@@ -281,7 +284,7 @@ const NewComic = (props) => {
               style={{ verticalAlign: "middle", marginRight: "1.5em" }}
               value={"NEW"}
               checked={titleBadge === "NEW"}
-              onClick={() => setTitleBadge("NEW")}
+              onFocus={handleBadge}
             />
           </div>
         </Modal.Body>

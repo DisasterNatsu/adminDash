@@ -4,14 +4,12 @@ import { GenreData } from "../utils/genreData";
 import ChapterList from "./chapterList";
 
 const EditComic = () => {
-  // All States
+  // Define all States here
 
-  const [status, setStatus] = useState("ongoing");
+  const [status, setStatus] = useState("");
   const [comicName, setComicName] = useState("Martial Peak");
   const [desc, setDesc] = useState("");
-  const [hot, setHot] = useState(true);
-  const [massRelease, setMassRelease] = useState(false);
-  const [newSeries, setNewSeries] = useState(false);
+  const [tags, setTags] = useState("");
   const [genres, setGenres] = useState([]);
 
   // Function for submitting
@@ -24,16 +22,7 @@ const EditComic = () => {
   // Checkbox function for Hot, Mass Release and New
 
   const checkBox = (e) => {
-    const { value, checked } = e.target;
-
-    if (value === "hot") {
-      setHot(!hot);
-      console.log(hot);
-    } else if (value === "massRelease") {
-      setMassRelease(!massRelease);
-    } else if (value === "new") {
-      setNewSeries(!newSeries);
-    }
+    setTags(e.target.value);
   };
 
   // CheckBox Function for Genres
@@ -91,25 +80,25 @@ const EditComic = () => {
             <input
               type="radio"
               id="ongoing"
-              value={"ongoing"}
-              checked={status === "ongoing"}
-              onChange={(e) => setStatus(e.target.value)}
+              value={"Ongoing"}
+              checked={status === "Ongoing"}
+              onFocus={(e) => setStatus(e.target.value)}
             />
             <label htmlFor="dropped">Dropped</label>
             <input
               type="radio"
               id="dropped"
-              value={"dropped"}
-              checked={status === "dropped"}
-              onChange={(e) => setStatus(e.target.value)}
+              value={"Dropped"}
+              checked={status === "Dropped"}
+              onFocus={(e) => setStatus(e.target.value)}
             />
             <label htmlFor="finished">Finished</label>
             <input
               type="radio"
               id="finished"
-              value={"finished"}
-              checked={status === "finished"}
-              onChange={(e) => setStatus(e.target.value)}
+              value={"Finished"}
+              checked={status === "Finished"}
+              onFocus={(e) => setStatus(e.target.value)}
             />
           </div>
         </div>
@@ -166,37 +155,37 @@ const EditComic = () => {
               <span className={styles.hot}>HOT</span>
             </label>
             <input
-              type="checkbox"
+              type="radio"
               style={{ marginRight: "1em" }}
-              checked={hot}
-              value="hot"
-              onChange={checkBox}
+              value="HOT"
+              checked={tags === "HOT"}
+              onFocus={checkBox}
             />
 
             {/* Mass Release */}
 
             <label htmlFor="massRelease">
-              <span className={styles.massRelease}>Mass Release</span>
+              <span className={styles.massRelease}>MASS RELEASE</span>
             </label>
             <input
-              type="checkbox"
+              type="radio"
               style={{ marginRight: "1em" }}
-              checked={massRelease}
-              value="massRelease"
-              onChange={checkBox}
+              value="MASS RELEASE"
+              checked={tags === "MASS RELEASE"}
+              onFocus={checkBox}
             />
 
             {/* New */}
 
             <label htmlFor="new">
-              <span className={styles.new}>New</span>
+              <span className={styles.new}>NEW</span>
             </label>
             <input
-              type="checkbox"
+              type="radio"
               style={{ marginRight: "1em" }}
-              checked={newSeries}
-              value="new"
-              onChange={checkBox}
+              value="NEW"
+              checked={tags === "NEW"}
+              onFocus={checkBox}
             />
 
             {/* Submit Button */}
