@@ -6,24 +6,17 @@ import { BiBookAdd } from "react-icons/bi";
 import { TbEdit } from "react-icons/tb";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Axios } from "../../utils/axios";
 import NewComic from "../../components/newComicModal";
 
-const Comics = () => {
+const Comics = ({ props }) => {
+  const comic = props.comics;
+
   const Router = useRouter(); // Defining Router
 
   const [modalShow, setModalShow] = useState(false);
 
   // Redirecting to comic Editing Page
-
-  const handleClick = (props) => {
-    let comicName = props;
-    for (let i = 0; i < comicName.length; i++) {
-      comicName = comicName.replace(" ", "-");
-    }
-    const nameUrl = comicName;
-
-    return Router.push(`/comics/${nameUrl}`);
-  };
 
   return (
     <Layout>
@@ -57,17 +50,28 @@ const Comics = () => {
               </tr>
             </thead>
             <tbody>
-              {dummyData.map((data, index) => {
+              {comic.map((data, index) => {
+                let genre = JSON.parse(data.Genres);
+
+                const handleClick = () => {
+                  let comicName = data.ComicTitle.toLowerCase();
+                  for (let i = 0; i < comicName.length; i++) {
+                    comicName = comicName.replace(" ", "-");
+                  }
+                  const name = comicName;
+
+                  const nameUrl = data.id + "-" + name;
+
+                  return Router.push(`/comics/${nameUrl}`);
+                };
+
                 return (
-                  <tr
-                    key={index}
-                    onClick={() => handleClick(data.title.toLocaleLowerCase())}
-                  >
+                  <tr key={index} onClick={() => handleClick()}>
                     <td>{data.id}</td>
-                    <td>{data.title}</td>
+                    <td>{data.ComicTitle}</td>
                     <td>{data.totalChapters}</td>
-                    <td>{data.status}</td>
-                    <td>{data.genres.join(", ")}</td>
+                    <td>{data.Status}</td>
+                    <td>{genre.join(", ")}</td>
                     <td>{data.lastUpdated}</td>
                     <td>
                       <TbEdit />
@@ -81,6 +85,18 @@ const Comics = () => {
       </div>
     </Layout>
   );
+};
+
+Comics.getInitialProps = async () => {
+  const response = await Axios.get("/comics/all/comics");
+
+  const comics = await response.data;
+
+  return {
+    props: {
+      comics,
+    },
+  };
 };
 
 const dummyData = [

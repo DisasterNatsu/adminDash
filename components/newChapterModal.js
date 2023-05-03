@@ -3,11 +3,16 @@ import styles from "../styles/newChapterModal.module.css";
 import Cookie from "js-cookie";
 import { Modal, Button } from "@nextui-org/react";
 import { Axios } from "../utils/axios";
+import { useRouter } from "next/router";
 
 const NewChapterModal = ({ hideModal }) => {
+  // Define Router
+
+  const Router = useRouter();
+
   // Define all the states here
 
-  const [chapterNumber, setChapterNumber] = useState();
+  const [chapterNumber, setChapterNumber] = useState("");
   const [chapterName, setChapterName] = useState("");
   const [zipFile, setZipFile] = useState();
   const [uploading, setUploading] = useState(false);
@@ -25,8 +30,22 @@ const NewChapterModal = ({ hideModal }) => {
 
       uploading === false ? setUploading(true) : null; // With Check
 
-      let comicTitle; // Need to send the Comic Title from the parent Component
-      let comicID; // Need to send the Comic ID from the parent Component
+      // Getting Comic Name from query
+
+      const param = Router.query.comicName.split("-");
+
+      const paramName = param.splice(1, param.length - 1);
+
+      // Changing the first letter of every String to upper Case
+
+      for (let i = 0; i < paramName.length; i++) {
+        paramName[i] =
+          paramName[i].charAt(0).toUpperCase() + paramName[i].slice(1);
+      }
+
+      let comicTitle = paramName.join(" ");
+
+      let comicID = Router.query.comicName.split("-").splice(0, 1)[0]; // Comic ID from Router Query Param
 
       const formData = new FormData();
 
@@ -36,7 +55,7 @@ const NewChapterModal = ({ hideModal }) => {
 
       // Appending Other Necessary Data
 
-      formData.append("chapterNumber", chapterNumber); // Appening Chapter Number
+      formData.append("chapterNumber", Number(chapterNumber)); // Appening Chapter Number
       formData.append("chapterName", chapterName); // Appening Chapter Name
       formData.append("comicTitle", comicTitle); // Appening Comic Title
       formData.append("comicID", comicID); // Appening Comic ID
@@ -51,12 +70,10 @@ const NewChapterModal = ({ hideModal }) => {
         Cookie.set("ds-admin-token", "");
         token = "";
       }
-
-      console.log(formData);
       // Now Sending the Post request to backend using Axios
 
       await Axios.post("/postChapter/", formData, {
-        headers: { "ds-admin-token": token },
+        headers: { "ds-admin-auth": token },
         onUploadProgress: (ProgressEvent) => {
           let percentCompleted = Math.round(
             (ProgressEvent.loaded * 100) / ProgressEvent.total

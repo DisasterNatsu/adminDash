@@ -3,14 +3,18 @@ import styles from "../styles/editComics.module.css";
 import { GenreData } from "../utils/genreData";
 import ChapterList from "./chapterList";
 
-const EditComic = () => {
-  // Define all States here
+const EditComic = ({ comic }) => {
+  // Parsing the Genre Array
 
-  const [status, setStatus] = useState("");
-  const [comicName, setComicName] = useState("Martial Peak");
+  const genre = JSON.parse(comic.Genres);
+
+  // Define all States here
+  console.log(comic);
+  const [status, setStatus] = useState(comic.Status);
+  const [comicName, setComicName] = useState("");
   const [desc, setDesc] = useState("");
-  const [tags, setTags] = useState("");
-  const [genres, setGenres] = useState([]);
+  const [tags, setTags] = useState(comic.Badges);
+  const [genres, setGenres] = useState(genre);
 
   // Function for submitting
 
@@ -55,7 +59,7 @@ const EditComic = () => {
             placeholder="Comic Name"
             id="comicName"
             className={styles.name}
-            defaultValue={"Martial Peak"}
+            defaultValue={comic.ComicTitle}
             onChange={(e) => setComicName(e.target.value)}
           />
           <label htmlFor="desc" className={styles.lables}>
@@ -68,9 +72,7 @@ const EditComic = () => {
             placeholder="Description"
             id="desc"
             className={styles.desc}
-            defaultValue={
-              "The journey to the martial peak is a lonely, solitary and long one. In the face of adversity, you must survive and remain unyielding. Only then can you break through and and continue on your journey to become the strongest. Sky Tower tests its disciples in the harshest ways to prepare them for this journey. One day the lowly sweeper Yang Kai managed to obtain a black book, setting him on the road to the peak of the martials world."
-            }
+            defaultValue={comic.Description}
             onChange={(e) => setDesc(e.target.value)}
           />
 
@@ -129,7 +131,7 @@ const EditComic = () => {
               type="text"
               id="author"
               className={styles.extra}
-              value={"Author"}
+              defaultValue={comic.Author}
               onChange={(e) => setStatus(e.target.value)}
             />
           </div>
@@ -144,7 +146,7 @@ const EditComic = () => {
               type="text"
               id="artist"
               className={styles.extra}
-              value={"Artist"}
+              defaultValue={comic.Artist}
               onChange={(e) => setStatus(e.target.value)}
             />
           </div>
@@ -152,13 +154,13 @@ const EditComic = () => {
             {/* Hot */}
 
             <label htmlFor="hot">
-              <span className={styles.hot}>HOT</span>
+              <span className={styles.hot}>TRENDING</span>
             </label>
             <input
               type="radio"
               style={{ marginRight: "1em" }}
-              value="HOT"
-              checked={tags === "HOT"}
+              value="TRENDING"
+              checked={tags === "TRENDING"}
               onFocus={checkBox}
             />
 
@@ -208,6 +210,7 @@ const EditComic = () => {
                       type="checkbox"
                       value={data.genre}
                       onChange={getGenres}
+                      checked={genres.includes(data.genre)}
                     />
                   </div>
                 );
