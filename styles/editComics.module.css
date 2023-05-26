@@ -142,17 +142,12 @@
 /* Submit Button */
 
 .button {
-  margin-left: 7%;
-  padding: 0.5em;
-  border: 1px transparent #000;
-  border-radius: 0.5em;
-  background-color: rgba(179, 4, 4, 0.499);
-  color: #000;
-  width: 5em;
-  font-weight: 600;
+  align-self: center;
+  margin: auto;
+  margin-top: 2em;
 }
 
-.button:hover {
-  background-color: rgb(172, 147, 5);
-  color: #fff;
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -5,18 +5,27 @@ import Head from "next/head";
 import { BiBookAdd } from "react-icons/bi";
 import { TbEdit } from "react-icons/tb";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { Axios } from "../../utils/axios";
 import NewComic from "../../components/newComicModal";
+import { Pagination } from "@nextui-org/react";
+import { DiscussionEmbed } from "disqus-react";
 
 const Comics = ({ props }) => {
-  const comic = props.comics;
-
   const Router = useRouter(); // Defining Router
 
-  const [modalShow, setModalShow] = useState(false);
+  // Difine your states here
 
-  // Redirecting to comic Editing Page
+  const [modalShow, setModalShow] = useState(false);
+  const [comicsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [comic] = useState(props.comics);
+
+  // Get Current Comics
+
+  const indexOfLastComic = currentPage * comicsPerPage; // Index of Last Comic
+  const indexOfFirstComic = indexOfLastComic - comicsPerPage; // Index of First Comic
+  const currentComics =
+    comic && comic.slice(indexOfFirstComic, indexOfLastComic); // Slicing The Page
 
   return (
     <Layout>
@@ -36,52 +45,65 @@ const Comics = ({ props }) => {
         </div>
 
         {/* Table Container */}
-        <div className={styles.tableContainer}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Comic Title</th>
-                <th>No. of Chapt</th>
-                <th>Status</th>
-                <th>Genres</th>
-                <th>Last Updated</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comic.map((data, index) => {
-                let genre = JSON.parse(data.Genres);
+        {comic ? (
+          <div className={styles.tableContainer}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Comic Title</th>
+                  <th>No. of Chapt</th>
+                  <th>Status</th>
+                  <th>Genres</th>
+                  <th>Last Updated</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentComics.map((data, index) => {
+                  let genre = data.Genres;
 
-                const handleClick = () => {
-                  let comicName = data.ComicTitle.toLowerCase();
-                  for (let i = 0; i < comicName.length; i++) {
-                    comicName = comicName.replace(" ", "-");
-                  }
-                  const name = comicName;
+                  const handleClick = () => {
+                    let comicName = data.ComicTitle.toLowerCase();
+                    for (let i = 0; i < comicName.length; i++) {
+                      comicName = comicName.replace(" ", "-");
+                    }
+                    const name = comicName;
 
-                  const nameUrl = data.id + "-" + name;
+                    const nameUrl = data.id + "-" + name;
 
-                  return Router.push(`/comics/${nameUrl}`);
-                };
+                    return Router.push(`/comics/${nameUrl}`);
+                  };
 
-                return (
-                  <tr key={index} onClick={() => handleClick()}>
-                    <td>{data.id}</td>
-                    <td>{data.ComicTitle}</td>
-                    <td>{data.totalChapters}</td>
-                    <td>{data.Status}</td>
-                    <td>{genre.join(", ")}</td>
-                    <td>{data.lastUpdated}</td>
-                    <td>
-                      <TbEdit />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                  return (
+                    <tr key={index} onClick={() => handleClick()}>
+                      <td>{data.id}</td>
+                      <td>{data.ComicTitle}</td>
+                      <td>{data.totalChapters}</td>
+                      <td>{data.Status}</td>
+                      <td>{genre}</td>
+                      <td>{data.Date}</td>
+                      <td>
+                        <TbEdit />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <Pagination
+              color={"gradient"}
+              className="mt-3"
+              total={30}
+              initialPage={1}
+              onChange={(e) => setCurrentPage(e)}
+            />
+          </div>
+        ) : (
+          <h1 style={{ textAlign: "center", marginTop: "2em" }}>
+            No Comics Found
+          </h1>
+        )}
       </div>
     </Layout>
   );
@@ -98,72 +120,5 @@ Comics.getInitialProps = async () => {
     },
   };
 };
-
-const dummyData = [
-  {
-    id: 123,
-    title: "Martial Peak",
-    totalChapters: 51,
-    status: "Ongoing",
-    genres: [
-      "Action",
-      "Adventure",
-      "Comedy",
-      "Ecchi",
-      "Harem",
-      "Live Action",
-      "Martial Arts",
-    ],
-    lastUpdated: "2 days ago",
-  },
-  {
-    id: 125,
-    title: "Yuan Zun",
-    totalChapters: 51,
-    status: "Ongoing",
-    genres: [
-      "Action",
-      "Adventure",
-      "Comedy",
-      "Ecchi",
-      "Harem",
-      "Live Action",
-      "Martial Arts",
-    ],
-    lastUpdated: "2 days ago",
-  },
-  {
-    id: 128,
-    title: "Apotheosis",
-    totalChapters: 51,
-    status: "Dropped",
-    genres: [
-      "Action",
-      "Adventure",
-      "Comedy",
-      "Ecchi",
-      "Harem",
-      "Live Action",
-      "Martial Arts",
-    ],
-    lastUpdated: "3 days ago",
-  },
-  {
-    id: 123,
-    title: "Martial Peak",
-    totalChapters: 51,
-    status: "Ongoing",
-    genres: [
-      "Action",
-      "Adventure",
-      "Comedy",
-      "Ecchi",
-      "Harem",
-      "Live Action",
-      "Martial Arts",
-    ],
-    lastUpdated: "2 days ago",
-  },
-];
 
 export default Comics;

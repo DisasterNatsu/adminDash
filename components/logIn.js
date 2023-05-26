@@ -11,6 +11,7 @@ const LogIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const Submit = async (e) => {
     e.preventDefault();
@@ -29,7 +30,10 @@ const LogIn = () => {
 
       Router.push("/dashboard");
     } catch (error) {
-      console.log(error.response.data.message);
+      setError(error.response.data.message);
+      return setTimeout(() => {
+        setError(undefined);
+      }, 5000);
     }
   };
 
@@ -60,6 +64,8 @@ const LogIn = () => {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
+            <Spacer y={1} />
+            {error && <h6 style={{ color: "red" }}>{error}</h6>}
             <Spacer y={1} />
             <Button color="gradient" style={{ margin: "auto" }} type="submit">
               Log In

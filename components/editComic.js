@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import styles from "../styles/editComics.module.css";
 import { GenreData } from "../utils/genreData";
 import ChapterList from "./chapterList";
+import { Button } from "@nextui-org/react";
 
-const EditComic = ({ comic }) => {
+const EditComic = ({ comic, chapters }) => {
   // Parsing the Genre Array
 
   const genre = JSON.parse(comic.Genres);
 
   // Define all States here
-  console.log(comic);
+
   const [status, setStatus] = useState(comic.Status);
   const [comicName, setComicName] = useState("");
   const [desc, setDesc] = useState("");
@@ -151,50 +152,67 @@ const EditComic = ({ comic }) => {
             />
           </div>
           <div className={styles.flexDisplay}>
-            {/* Hot */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: ".7em",
+                justifyContent: "center",
+              }}
+            >
+              {/* Hot */}
+              <div>
+                <label htmlFor="hot">
+                  <span className={styles.hot}>TRENDING</span>
+                </label>
+                <input
+                  type="radio"
+                  style={{ marginRight: "1em" }}
+                  value="TRENDING"
+                  checked={tags === "TRENDING"}
+                  onFocus={checkBox}
+                />
+              </div>
 
-            <label htmlFor="hot">
-              <span className={styles.hot}>TRENDING</span>
-            </label>
-            <input
-              type="radio"
-              style={{ marginRight: "1em" }}
-              value="TRENDING"
-              checked={tags === "TRENDING"}
-              onFocus={checkBox}
-            />
+              {/* Mass Release */}
+              <div>
+                <label htmlFor="massRelease">
+                  <span className={styles.massRelease}>MASS RELEASE</span>
+                </label>
+                <input
+                  type="radio"
+                  style={{ marginRight: "1em" }}
+                  value="MASS RELEASE"
+                  checked={tags === "MASS RELEASE"}
+                  onFocus={checkBox}
+                />
+              </div>
 
-            {/* Mass Release */}
-
-            <label htmlFor="massRelease">
-              <span className={styles.massRelease}>MASS RELEASE</span>
-            </label>
-            <input
-              type="radio"
-              style={{ marginRight: "1em" }}
-              value="MASS RELEASE"
-              checked={tags === "MASS RELEASE"}
-              onFocus={checkBox}
-            />
-
-            {/* New */}
-
-            <label htmlFor="new">
-              <span className={styles.new}>NEW</span>
-            </label>
-            <input
-              type="radio"
-              style={{ marginRight: "1em" }}
-              value="NEW"
-              checked={tags === "NEW"}
-              onFocus={checkBox}
-            />
+              {/* New */}
+              <div>
+                <label htmlFor="new">
+                  <span className={styles.new}>NEW</span>
+                </label>
+                <input
+                  type="radio"
+                  style={{ marginRight: "1em" }}
+                  value="NEW"
+                  checked={tags === "NEW"}
+                  onFocus={checkBox}
+                />
+              </div>
+            </div>
 
             {/* Submit Button */}
 
-            <button type="submit" className={styles.button}>
+            <Button
+              type="submit"
+              size="sm"
+              color="gradient"
+              className={styles.button}
+            >
               Publish
-            </button>
+            </Button>
           </div>
 
           {/* Genres */}
@@ -227,7 +245,13 @@ const EditComic = ({ comic }) => {
         </div>
       </form>
       <div className={styles.container} style={{ marginTop: "1.8em" }}>
-        <ChapterList />
+        {chapters ? (
+          <ChapterList chapters={chapters} />
+        ) : (
+          <h3 style={{ textAlign: "center" }}>
+            No Chapters found for this Chapter
+          </h3>
+        )}
       </div>
     </div>
   );

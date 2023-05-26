@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import styles from "../styles/newComicModal.module.css";
 import { GenreData } from "../utils/genreData";
-import { Input, Spacer, Radio } from "@nextui-org/react";
+import { Input, Spacer, Radio, green } from "@nextui-org/react";
 import Cooke from "js-cookie";
 import { useRouter } from "next/router";
 import { Axios } from "../utils/axios";
@@ -19,6 +19,9 @@ const NewComic = (props) => {
   const [titleBadge, setTitleBadge] = useState("");
   const [origin, setOrigin] = useState("");
   const [status, setStatus] = useState("");
+
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   // Defining Router
 
@@ -79,8 +82,14 @@ const NewComic = (props) => {
       const hasPosted = await post.data;
 
       console.log(hasPosted);
+
+      setSuccess(hasPosted.message);
+      return setTimeout(() => {
+        setSuccess("");
+      }, 4000);
     } catch (error) {
-      console.log(error);
+      error.response.data.message && setError(error.response.data.message);
+      return console.log(error);
     }
   };
 
@@ -289,6 +298,32 @@ const NewComic = (props) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
+          {success && (
+            <p
+              style={{
+                marginRight: "30%",
+                padding: "5px 12px",
+                color: "#fff",
+                backgroundColor: "green",
+                borderRadius: "10px",
+              }}
+            >
+              {success}
+            </p>
+          )}
+          {error && (
+            <p
+              style={{
+                marginRight: "30%",
+                padding: "5px 12px",
+                color: "#fff",
+                backgroundColor: "red",
+                borderRadius: "10px",
+              }}
+            >
+              {error}
+            </p>
+          )}
           <Button
             variant="warning"
             type="submit"

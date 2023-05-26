@@ -5,12 +5,16 @@ import Layout from "../../../components/layout/layout";
 import styles from "../../../styles/ComicDetails.module.css";
 import { Axios } from "../../../utils/axios";
 
-const ComicDetails = ({ comic }) => {
+const ComicDetails = (props) => {
+  const comic = props.comic;
+
+  const chapters = props.chapters;
+
   return (
     <Layout>
       <div className={styles.container}>
         <div className={styles.details}>
-          <EditComic comic={comic} />
+          <EditComic comic={comic && comic} chapters={chapters && chapters} />
         </div>
         <div className={styles.cover}>
           <ComicImage />
